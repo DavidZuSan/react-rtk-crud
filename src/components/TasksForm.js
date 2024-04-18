@@ -1,22 +1,33 @@
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { addTask } from "../features/tasks/taskSlice"
+import { v4 as uuid } from 'uuid';
+import { useNavigate } from "react-router-dom";
 
 function TasksForm() {
 
-  const [tasks, setTasks] = useState({
+  const [task, setTask] = useState({
     title: '',
     description: ''
-  })
+  });
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setTasks({
-      ...tasks,
+    setTask({
+      ...task,
       [e.target.name]: e.target.value,
     })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(tasks)
+    dispatch(addTask({
+      ...task,
+      id: uuid(),
+    }))
+    navigate('/')
   }
 
   return (
