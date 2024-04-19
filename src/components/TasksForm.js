@@ -42,7 +42,7 @@ useEffect(() => {
   if (params.id) {
     setTask(tasks.find((task) => task.id === params.id));
   }
-}, [params, tasks]);
+}, [params.id, tasks]);
 
   return (
     <form onSubmit={handleSubmit} className="bg-zinc-800 max-w-sm p-4 ,mb-2">
