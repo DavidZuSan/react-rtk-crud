@@ -1,53 +1,43 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = [
-    {
-        id: 1,
-        title: 'Aprender Redux',
-        description: 'Aprender Redux con el curso curso en Youtube',
-        completed: false
-    },
-    {
-        id: 2,
-        title: 'Aprender Next.js',
-        description: 'Aprender Next.js con el curso curso en Youtube',
-        completed: false
-    },
-    {
-        id: 3,
-        title: 'Aprender GraphQL',
-        description: 'Aprender GraphQL con el curso curso en Youtube',
-        completed: false
-    },
-    {
-        id: 4,
-        title: 'Aprender Node.js',
-        description: 'Aprender Node.js con el curso curso en Youtube',
-        completed: false
-    },
-    {
-        id: 5,
-        title: 'Aprender MoongoDB',
-        description: 'Aprender MoongoDB con el curso curso en Youtube',
-        completed: false
-    },
+  {
+    id: "1",
+    title: "Task 1",
+    completed: false,
+    description: "This is a task",
+  },
+  {
+    id: "2",
+    title: "Task 2",
+    completed: false,
+    description: "This is a task",
+  },
 ];
 
-export const taskSlice = createSlice({
-    name: 'tasks',
-    initialState,
-    reducers: {
-        addTask: (state, action) => {
-            state.push(action.payload)
-        },
-        deleteTask: (state, action) => {
-            const taskFound = state.find(task => task.id === action.payload)
-            if(taskFound){
-                state.splice(state.indexOf(taskFound), 1)
-            }
-        }
+const userSlice = createSlice({
+  name: "tasks",
+  initialState,
+  reducers: {
+    addTask: (state, action) => {
+      state.push(action.payload);
     },
-})
+    editTask: (state, action) => {
+      const { id, title, description } = action.payload;
+      const foundTask = state.find((task) => task.id === id);
+      if (foundTask) {
+        foundTask.title = title;
+        foundTask.description = description;
+      }
+    },
+    deleteTask: (state, action) => {
+      const foundTask = state.find((task) => task.id === action.payload);
+      if (foundTask) {
+        state.splice(state.indexOf(foundTask), 1);
+      }
+    },
+  },
+});
 
-export const { addTask, deleteTask } = taskSlice.actions;
-export default taskSlice.reducer
+export const { addTask, editTask, deleteTask } = userSlice.actions;
+export default userSlice.reducer;
